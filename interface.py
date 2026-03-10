@@ -1,6 +1,3 @@
-#carrega as variáveis de ambiente
-load_dotenv()
-
 import os
 from dotenv import load_dotenv
 
@@ -9,6 +6,10 @@ from tkinter import ttk, messagebox
 
 from Agendamento import Agendamento
 from enviar_email import enviar_email
+
+#carrega as variáveis de ambiente
+load_dotenv()
+
 
 #Função disparar_agendamento -> Instancia a classe agendamentoe passa a instância para a função enviar_email junto com as informações de login.
 def disparar_agendamento():
