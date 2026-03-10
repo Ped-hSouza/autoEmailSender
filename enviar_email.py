@@ -2,6 +2,8 @@ import smtplib
 from email.message import EmailMessage
 from neuropsico import *
 
+from terapias import *
+
 
 
 def enviar_email(agendamento, email_remetente, password_remetente):
@@ -89,7 +91,7 @@ def enviar_email(agendamento, email_remetente, password_remetente):
     """
 
     msg.set_content(corpo_texto)
-    msg.add_alternative(corpo_html, subtype='html')
+    msg.add_alternative(corpo_terapia_info, subtype='html')
 
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
