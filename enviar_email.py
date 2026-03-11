@@ -1,19 +1,19 @@
 import smtplib
-from email.message import EmailMessage
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 from neuropsico import *
-
 from terapias import *
-
-
 
 def enviar_email(agendamento, email_remetente, password_remetente):
 
-    msg = EmailMessage()
+    msg = MIMEMultipart('alternative')
     msg['Subject'] = 'Consulta agendada - neuropediatra'
     msg['To'] = agendamento.email
     msg['From'] = email_remetente
 
-    corpo_texto = """
+    corpo_texto = f"""
         Olá! Espero que esteja bem.
 
         Conforme solicitado,
@@ -46,7 +46,7 @@ def enviar_email(agendamento, email_remetente, password_remetente):
 
                 <h2 style="color: #00995d; border-bottom: 2px solid #00995d; padding-bottom: 10px;">Confirmação de Agendamento</h2>
 
-                <p>Bom dia! Espero que esteja bem.</p>
+                <p>Prezado(a), Espero que esteja bem!</p>
                 
                 <p>Conforme solicitado, seguem os detalhes da consulta:</p>
 
@@ -89,8 +89,8 @@ def enviar_email(agendamento, email_remetente, password_remetente):
         </html>
     """
 
-    msg.set_content(corpo_texto)
-    msg.add_alternative(corpo_html, subtype='html')
+    msg.attach(MIMEText(corpo_texto, 'plain'))
+    msg.attach(MIMEText(corpo_html, 'html'))
 
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
